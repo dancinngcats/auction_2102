@@ -11,6 +11,7 @@ class ItemTest < Minitest::Test
 
     @attendee1 = Attendee.new(name: 'Megan', budget: '$50')
     @attendee2 = Attendee.new(name: 'Bob', budget: '$75')
+    @attendee3 = Attendee.new(name: 'Mike', budget: '$100')
   end
 
   def test_it_exists
@@ -35,5 +36,12 @@ class ItemTest < Minitest::Test
     @item1.add_bid(@attendee1, 22)
 
     assert_equal 22, @item1.current_high_bid
+  end
+
+  def test_it_can_close_bidding
+    @item1.add_bid(@attendee2, 20)
+    @item1.add_bid(@attendee1, 22)
+
+    assert_equal ({@attendee1 => 22, @attendee2 => 20}), @item1.bids
   end
 end
